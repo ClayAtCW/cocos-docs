@@ -370,7 +370,7 @@ Add a new `Game` script inside the `assets/scripts` folder (next to `Star` and `
 ```js
 // Game.js
     properties: {
-        // this property quotes the PreFab resource of stars
+        // this property references the PreFab resource of stars
         starPrefab: {
             default: null,
             type: cc.Prefab
@@ -393,9 +393,9 @@ Add a new `Game` script inside the `assets/scripts` folder (next to `Star` and `
 
 After saving the script, add the `Game` component to the `Canvas` node in the **Node Tree** (after choosing the `Canvas` node, drag the script to the **Properties** panel or click the **Add component** button in the **Properties** panel and choose `Game` in `Add Custom Component`).
 
-Next, drag the `star` Prefab resource from the **Assets** panel into the `Star Prefab` property of the newly created `Game` component. This is the first time we have set up a quotation for the property. Only when setting `type` as quote type when declaring a property (such as the `cc.Prefab` type written here) can an asset or a node be dragged to the property.)
+Next, drag the `star` Prefab resource from the **Assets** panel into the `Star Prefab` property of the newly created `Game` component. This is the first time we have set up a reference for the property. Only when setting `type` as a reference type when declaring a property (such as the `cc.Prefab` type written here) can an asset or a node be dragged to the property.)
 
-Then, drag the `ground` and `Player` nodes from the **Node Tree** to properties of the same name in the component, to finish the node quotation.
+Then, drag the `ground` and `Player` nodes from the **Node Tree** to properties of the same name in the component, to finish the node reference.
 
 Finally, set the values of the `Min Star Duration` and `Max Star Duration` properties as `3` and `5`. Later when generating stars, we will choose a random value between these two values, for the duration of each star.
 
@@ -439,9 +439,9 @@ After saving the script, click the **preview** button. Then in the browser you w
 
 ### Adding the action of the main character's touching and collecting of stars
 
-Now we will add the action logic of the main character's collecting of stars. The essential point here lies in the fact that the star needs to obtain the position of the main character's node at any time to judge if the distance between them is shorter than the collectable distance. How do we obtain the quotation of the main character's node? Don't forget that we have done two things before:
+Now we will add the action logic of the main character's collecting of stars. The essential point here lies in the fact that the star needs to obtain the position of the main character's node at any time to judge if the distance between them is shorter than the collectable distance. How do we obtain the reference to the main character's node? Don't forget that we have done two things before:
 
-1. There is a property named `player` in the `Game` component, which saved the quotation of the main character's node.
+1. There is a property named `player` in the `Game` component, which saved the reference to the main character's node.
 2. Each star is dynamically generated in the `Game` script.
 
 Therefore, we only need to deliver the concrete example in the `Game` component into a star and save it after the concrete example of the `Star` node is generated in the `Game` script. Then we can visit the main character's node by `game.player` at anytime. Let's open the `Game` script, and add the following code to the end of the `spawnNewStar` method:
@@ -455,7 +455,7 @@ Therefore, we only need to deliver the concrete example in the `Game` component 
     },
 ```
 
-Open the `Star` script after saving, now we can use the `player` node quoted in the `Game` component to judge the distance. Add the methods named `getPlayerDistance` and `onPicked` and put them below the `onLoad` method:
+Open the `Star` script after saving, now we can use the `player` node referenced in the `Game` component to judge the distance. Add the methods named `getPlayerDistance` and `onPicked` and put them below the `onLoad` method:
 
 ```js
 // Star.js
@@ -518,7 +518,7 @@ We will put the logic of scoring and updating the score display in the `Game` sc
 // Game.js
     properties: {
         // ...
-        // quotation of score label
+        // score label reference
         scoreDisplay: {
             default: null,
             type: cc.Label
@@ -564,13 +564,13 @@ Open the `Star` script after saving the `Game` script. Add the invoking of `gain
     },
 ```
 
-Preview after saving. You will see that when collecting stars, the scores displayed at the top of screen will increase now!
+Preview after saving. You will see that when collecting stars, the score displayed at the top of screen will increase now!
 
 ![preview score](quick-start/preview_score.png)
 
 ## Judgement of failure and restarting
 
-Now our game has taken shape. But no matter how many scores one may get, a game without the possibility of failure won't give players any fulfillment. Now let's add the action of the stars' regular disappearance. And if all the stars disappear, the game will be viewed as failed. In other words, players need to finish collecting the star before the star disappears and repeat this procedure unceasingly to finish the loop of the play method.
+Now our game has taken shape. But no matter how many points one may get, a game without the possibility of failure won't give players any fulfillment. Now let's add the action of the stars' regular disappearance. And if all the stars disappear, the game will be viewed as failed. In other words, players need to finish collecting the star before the star disappears and repeat this procedure unceasingly to finish the loop of the play method.
 
 ### Adding the logic of disappearing in a limited time to the star
 
@@ -648,7 +648,7 @@ Although lots of people will ignore sound when playing smartphone games, for the
 
 ### Jumping sound effect
 
-Firstly, add the jumping sound effect. Open the `Player` script and add the `jumpAudio` property that quotes the sound document resource:
+Firstly, add the jumping sound effect. Open the `Player` script and add the `jumpAudio` property that references the sound document resource:
 
 ```js
 // Player.js
@@ -685,7 +685,7 @@ Then rewrite the `setJumpAction` method, insert the callback of playing the soun
 
 ### Scoring sound effect
 
-After saving the `Player` script, open the `Game` script to add the scoring sound effect. Firstly, we still add a property to `properties` to quote the sound document resource:
+After saving the `Player` script, open the `Game` script to add the scoring sound effect. Firstly, we still add a property to `properties` to reference the sound document resource:
 
 ```js
 // Game.js
@@ -720,7 +720,7 @@ Now it's done! The scene hierarchy of the completed form and properties of each 
 
 ![hierarchy complete](quick-start/hierarchy_complete.png) ![game complete](quick-start/game_complete.png) ![player complete](quick-start/player_complete.png)
 
-Now we can fully enjoy the newly created game. How many scores can you get? Don't forget that you can modify game parameters like movement control and star duration, etc. in the `Player` and `Game` components at anytime to quickly adjust the game's degree of difficulty. The scene needs to be saved after modifications of component properties. Only the saved values can be recorded.
+Now we can fully enjoy the newly created game. How many points can you get? Don't forget that you can modify game parameters like movement control and star duration, etc. in the `Player` and `Game` components at anytime to quickly adjust the game's degree of difficulty. The scene needs to be saved after modifications of component properties. Only the saved values can be recorded.
 
 ## Summary
 
